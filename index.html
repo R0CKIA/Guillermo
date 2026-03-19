@@ -3,36 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RøckIA - El jardín de la poesía eterna</title>
+<title>RøckIA - Código Original Alfa</title>
 
 <style>
 body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden}
-
 #cosmos{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 
 /* INTRO */
-#intro{
- position:fixed;
- width:100%;
- height:100%;
- background:black;
- display:flex;
- justify-content:center;
- align-items:center;
- flex-direction:column;
- z-index:9999;
- transition:1s;
-}
+#intro{position:fixed;width:100%;height:100%;background:black;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:9999;transition:1s}
 #intro h1{font-size:40px;letter-spacing:5px}
-#intro button{
- margin-top:20px;
- padding:10px 20px;
- background:red;
- border:none;
- color:white;
- font-size:16px;
- cursor:pointer;
-}
+#intro button{margin-top:20px;padding:10px 20px;background:red;border:none;color:white;font-size:16px;cursor:pointer}
 
 header{padding:80px 20px;text-align:center;background:rgba(0,0,0,0.5)}
 h1{font-size:48px;letter-spacing:3px}
@@ -43,20 +23,8 @@ nav a:hover{background:#ff0000}
 
 section{padding:40px 20px;max-width:1000px;margin:auto}
 
-.card{
- background:#0f0f0f;
- padding:20px;
- margin-bottom:20px;
- border-radius:16px;
- box-shadow:0 0 20px rgba(255,0,0,.3);
- opacity:0;
- transform:translateY(40px);
- animation:fadeIn 1s forwards;
-}
-
-@keyframes fadeIn{
- to{opacity:1;transform:translateY(0)}
-}
+.card{background:#0f0f0f;padding:20px;margin-bottom:20px;border-radius:16px;box-shadow:0 0 20px rgba(255,0,0,.3);opacity:0;transform:translateY(40px);animation:fadeIn 1s forwards}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
 
 .track{padding:10px;margin:10px 0;background:#111;border-radius:10px}
 .track.active{background:#400;box-shadow:0 0 10px red}
@@ -92,6 +60,7 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 <a href="#noticias">Noticias</a>
 <a href="#albums">Álbums</a>
 <a href="#videos">Videos</a>
+<a href="#imagen">Imagen y Palabra</a>
 </nav>
 
 <section id="blog">
@@ -99,7 +68,7 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 <div class="card">
 <p>Bienvenido al despertar</p>
 <p>Visitas: <span id="visitas">0</span></p>
-<p>Contacto: guillermo.alarcon75@gmail.com</p>
+<p>Contacto: tuemail@email.com</p>
 </div>
 </section>
 
@@ -108,12 +77,12 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 
 <div class="card">
 <h3>Primer manifiesto</h3>
-<p>Este es el inicio del despertar. Aquí se documentará la evolución de RøckIA, pensamientos, ideas, música y verdad.</p>
+<p>Este es el inicio del despertar. Aquí documentas ideas, avances y verdad.</p>
 </div>
 
 <div class="card">
 <h3>Nueva publicación</h3>
-<p>Aquí puedes escribir noticias, avances de álbumes, reflexiones o anuncios importantes.</p>
+<p>Publica noticias, avances de discos o reflexiones.</p>
 </div>
 
 </section>
@@ -148,6 +117,22 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
 </div>
 </div>
+</section>
+
+<section id="imagen">
+<h2>🖤 Imagen y Palabra</h2>
+
+<div class="card">
+<h3>Título de la obra</h3>
+<p>Aquí puedes escribir poesía, letras, manifiestos o reflexiones profundas.</p>
+<img src="obra.jpg" style="width:100%;border-radius:10px;margin-top:10px">
+</div>
+
+<div class="card">
+<h3>Otra obra</h3>
+<p>Puedes combinar texto con imagen, audio o incluso video.</p>
+</div>
+
 </section>
 
 <div id="player-bar">🎧 Reproduciendo: <span id="now-playing">Nada</span></div>
