@@ -6,10 +6,15 @@
 <title>RøckIA - Código Original Alfa</title>
 
 <style>
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#fff;overflow-x:hidden;animation:breath 8s infinite alternate}
+
+@keyframes breath{
+ from{filter:brightness(0.8);} 
+ to{filter:brightness(1);} 
+}
+
 #cosmos{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 
-/* INTRO */
 #intro{position:fixed;width:100%;height:100%;background:black;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:9999;transition:1s}
 #intro h1{font-size:40px;letter-spacing:5px}
 #intro button{margin-top:20px;padding:10px 20px;background:red;border:none;color:white;font-size:16px;cursor:pointer}
@@ -23,8 +28,7 @@ nav a:hover{background:#ff0000}
 
 section{padding:40px 20px;max-width:1000px;margin:auto}
 
-.card{background:#0f0f0f;padding:20px;margin-bottom:20px;border-radius:16px;box-shadow:0 0 20px rgba(255,0,0,.3);opacity:0;transform:translateY(40px);animation:fadeIn 1s forwards}
-@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+.card{background:#0f0f0f;padding:20px;margin-bottom:20px;border-radius:16px;box-shadow:0 0 20px rgba(255,0,0,.3);opacity:0;transform:translateY(40px)}
 
 .track{padding:10px;margin:10px 0;background:#111;border-radius:10px}
 .track.active{background:#400;box-shadow:0 0 10px red}
@@ -44,8 +48,9 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 
 <div id="intro">
 <h1>RØCKIA</h1>
-<p>El sonido del despertar humano</p>
+<p id="intro-text"></p>
 <button onclick="enterSite()">Entrar</button>
+<audio id="ambient" src="ambient.mp3" loop></audio>
 </div>
 
 <canvas id="cosmos"></canvas>
@@ -66,7 +71,11 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 <section id="blog">
 <h2>📰 Inicio</h2>
 <div class="card">
-<p>Bienvenido al despertar</p>
+<p>
+RØCKIA no es música.<br>
+Es un proceso.<br><br>
+Es el eco de una verdad que pocos quieren escuchar.
+</p>
 <p>Visitas: <span id="visitas">0</span></p>
 <p>Contacto: tuemail@email.com</p>
 </div>
@@ -74,17 +83,10 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 
 <section id="noticias">
 <h2>🔥 Noticias / Blog</h2>
-
 <div class="card">
 <h3>Primer manifiesto</h3>
-<p>Este es el inicio del despertar. Aquí documentas ideas, avances y verdad.</p>
+<p>Este es el inicio del despertar.</p>
 </div>
-
-<div class="card">
-<h3>Nueva publicación</h3>
-<p>Publica noticias, avances de discos o reflexiones.</p>
-</div>
-
 </section>
 
 <section id="albums">
@@ -121,18 +123,11 @@ section{padding:40px 20px;max-width:1000px;margin:auto}
 
 <section id="imagen">
 <h2>🖤 Imagen y Palabra</h2>
-
 <div class="card">
 <h3>Título de la obra</h3>
-<p>Aquí puedes escribir poesía, letras, manifiestos o reflexiones profundas.</p>
+<p>Aquí puedes escribir poesía o letras.</p>
 <img src="obra.jpg" style="width:100%;border-radius:10px;margin-top:10px">
 </div>
-
-<div class="card">
-<h3>Otra obra</h3>
-<p>Puedes combinar texto con imagen, audio o incluso video.</p>
-</div>
-
 </section>
 
 <div id="player-bar">🎧 Reproduciendo: <span id="now-playing">Nada</span></div>
@@ -142,28 +137,58 @@ function enterSite(){
  document.getElementById("intro").style.opacity = 0;
  setTimeout(()=>{
    document.getElementById("intro").style.display="none";
-   if(document.querySelector("audio")){
-     document.querySelector("audio").play();
-   }
+
+   let ambient = document.getElementById("ambient");
+   if(ambient){ ambient.volume = 0.3; ambient.play(); }
+
+   let firstTrack = document.querySelector("audio");
+   if(firstTrack){ firstTrack.volume = 0.7; firstTrack.play(); }
  },1000);
 }
 
+// typing intro
+const text = "No es música... es despertar.";
+let i = 0;
+function typing(){
+ if(i < text.length){
+  document.getElementById("intro-text").innerHTML += text.charAt(i);
+  i++;
+  setTimeout(typing,40);
+ }
+}
+typing();
+
+// contador
 let visitas = localStorage.getItem('visitas') || 0;
 visitas++;
 localStorage.setItem('visitas', visitas);
 document.getElementById('visitas').innerText = visitas;
 
+// audio system
 const tracks = document.querySelectorAll("audio");
 tracks.forEach((audio,i)=>{
  audio.addEventListener("ended",()=>{
   if(tracks[i+1]) tracks[i+1].play();
  });
  audio.addEventListener("play",()=>{
-  const title = audio.parentElement.querySelector(".track-title").innerText;
+  const title = audio.parentElement.querySelector(".track-title")?.innerText || "";
   document.getElementById("now-playing").innerText = title;
  });
 });
 
+// scroll animation
+const cards = document.querySelectorAll(".card");
+const observer = new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+    entry.target.style.opacity = 1;
+    entry.target.style.transform = "translateY(0)";
+  }
+ });
+});
+cards.forEach(card=>observer.observe(card));
+
+// cosmos
 const canvas = document.getElementById("cosmos");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
